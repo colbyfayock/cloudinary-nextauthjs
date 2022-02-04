@@ -1,8 +1,11 @@
 import Head from 'next/head'
 import Image from 'next/image'
+import { useSession, signIn, signOut } from "next-auth/react"
+
 import styles from '../styles/Home.module.css'
 
 export default function Home() {
+  const { data: session } = useSession()
   return (
     <div className={styles.container}>
       <Head>
@@ -15,6 +18,20 @@ export default function Home() {
         <h1 className={styles.title}>
           Welcome to <a href="https://nextjs.org">Next.js!</a>
         </h1>
+
+        { session && (
+          <p>
+            Signed in as {session.user.email} <br />
+            <button onClick={() => signOut()}>Sign out</button>
+          </p>
+        )}
+
+        { !session && (
+          <p>
+            Not signed in <br />
+            <button onClick={() => signIn()}>Sign in</button>
+          </p>
+        )}
 
         <p className={styles.description}>
           Get started by editing{' '}
