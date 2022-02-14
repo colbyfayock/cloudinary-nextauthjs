@@ -20,10 +20,10 @@ export default NextAuth({
       profile(profile) {
         console.log('profile', profile)
         return {
-          id: profile.sub,
+          id: profile.id,
           name: profile.name,
           email: profile.email,
-          image: profile.picture,
+          image: null
         }
       },
       clientId: process.env.CLOUDINARY_CLIENT_ID,
