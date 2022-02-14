@@ -7,6 +7,27 @@ export default NextAuth({
     TwitterProvider({
       clientId: process.env.TWITTER_CLIENT_ID,
       clientSecret: process.env.TWITTER_CLIENT_SECRET
-    })
+    }),
+    // https://next-auth.js.org/v3/configuration/providers#using-a-custom-provider
+    {
+      id: 'cloudinary',
+      name: 'Cloudinary',
+      type: 'oauth',
+      wellKnown: 'https://oauth-staging.cloudinary.com/.well-known/openid-configuration',
+      authorization: { params: { scope: 'upload' } },
+      idToken: true,
+      checks: ['pkce', 'state'],
+      profile(profile) {
+        console.log('profile', profile)
+        return {
+          id: profile.sub,
+          name: profile.name,
+          email: profile.email,
+          image: profile.picture,
+        }
+      },
+      clientId: process.env.CLOUDINARY_CLIENT_ID,
+      clientSecret: process.env.CLOUDINARY_CLIENT_SECRET
+    },
   ],
 })
