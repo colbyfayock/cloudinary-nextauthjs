@@ -13,7 +13,7 @@ export default NextAuth({
       id: 'cloudinary',
       name: 'Cloudinary',
       type: 'oauth',
-      wellKnown: 'https://oauth-staging.cloudinary.com/.well-known/openid-configuration',
+      wellKnown: 'https://oauth.cloudinary.com/.well-known/openid-configuration',
       authorization: { params: { scope: 'upload' } },
       idToken: true,
       checks: ['pkce', 'state'],
