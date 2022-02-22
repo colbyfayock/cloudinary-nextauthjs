@@ -13,9 +13,10 @@ export default NextAuth({
       id: 'cloudinary',
       name: 'Cloudinary',
       type: 'oauth',
-      authorization: 'https://oauth.cloudinary.com/oauth2/auth',
-      token: 'https://oauth.cloudinary.com/oauth2/token',
-      userinfo: 'https://oauth.cloudinary.com/userinfo',
+      wellKnown: 'https://oauth.cloudinary.com/.well-known/openid-configuration',
+      authorization: { params: { scope: 'upload' } },
+      idToken: false,
+      checks: 'none',
       profile(profile) {
         console.log('profile', profile)
         return {
