@@ -11,12 +11,16 @@ export default async (req, res) => {
 
   console.log('token.cloudinary.accessToken', token.cloudinary.accessToken)
 
-  const { cloud_name } = await fetch('https://api.cloudinary.com/v1_1/token/info', {
+  const response = await fetch('https://api.cloudinary.com/v1_1/token/info', {
     method: 'POST',
     headers: {
       Authorization: `Bearer ${token.cloudinary.accessToken}`
     }
-  }).then(r => r.json());
+  });
+  console.log('response', response)
+  const data = await data.json();
+
+  console.log('data', data)
 
   console.log('cloud_name', cloud_name)
 
