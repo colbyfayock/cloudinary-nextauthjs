@@ -3,6 +3,7 @@ import TwitterProvider from 'next-auth/providers/twitter';
 
 export default NextAuth({
   secret: process.env.SECRET,
+  debug: true,
   providers: [
     TwitterProvider({
       clientId: process.env.TWITTER_CLIENT_ID,
@@ -15,7 +16,7 @@ export default NextAuth({
       type: 'oauth',
       wellKnown: 'https://oauth.cloudinary.com/.well-known/openid-configuration',
       authorization: { params: { scope: 'upload' } },
-      idToken: false,
+      idToken: true,
       checks: ['state'],
       profile(profile) {
         console.log('profile', profile)
