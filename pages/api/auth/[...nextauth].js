@@ -29,20 +29,16 @@ export default NextAuth({
     },
   ],
   callbacks: {
-    async jwt({ token, account, ...inrest }, ...toprest) {
-      console.log('token', token)
-      console.log('account', account)
-      console.log('inrest', inrest)
-      console.log('toprest', toprest)
+    async jwt({ token, account }) {
+      if ( !account || !account.provider ) return token;
+
       if ( !token[account.provider] ) {
         token[account.provider] = {};
       }
 
-      if (account) {
-        token[account.provider].accessToken = account.access_token;
-      }
+      token[account.provider].accessToken = account.access_token;
 
-      return token
+      return token;
     }
   }
 })
