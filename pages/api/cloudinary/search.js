@@ -11,21 +11,28 @@ export default async (req, res) => {
 
   console.log('token.cloudinary.accessToken', token.cloudinary.accessToken)
 
-  const response = await fetch('https://api.cloudinary.com/v1_1/token/info', {
-    method: 'POST',
-    headers: {
-      Authorization: `Bearer ${token.cloudinary.accessToken}`
-    }
-  });
-  console.log('response', response)
-  const data = await response.json();
+  let cloudName;
 
-  console.log('data', data)
+  try {
+    const response = await fetch('https://api.cloudinary.com/v1_1/token/info', {
+      method: 'POST',
+      headers: {
+        Authorization: `Bearer ${token.cloudinary.accessToken}`
+      }
+    });
 
-  console.log('cloud_name', cloud_name)
+    const { cloud_name } = await response.json();
+
+    cloudName = cloud_name;
+  } catch(e) {
+    console.log('e', e);
+    return res.status(400).json({
+      status: e.message
+    });
+  }
 
   cloudinary.config({
-    cloud_name,
+    cloud_name: cloudName,
     oauth_token: token.cloudinary.accessToken
   });
 
