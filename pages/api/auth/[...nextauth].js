@@ -30,6 +30,12 @@ export default NextAuth({
   ],
   callbacks: {
     async jwt(token, user, account = {}, profile, isNewUser) {
+      console.group('jwt');
+      console.log('token', token);
+      console.log('user', user);
+      console.log('account', account);
+      console.log('profile', profile);
+      console.groupEnd('jwt');
       if ( account.provider && !token[account.provider] ) {
         token[account.provider] = {};
       }
