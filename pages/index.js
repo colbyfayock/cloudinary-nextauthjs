@@ -1,7 +1,7 @@
 import { useState, useEffect } from 'react';
 import Head from 'next/head'
 import Image from 'next/image'
-import { useSession, signIn, signOut } from "next-auth/react"
+import { useSession, signIn, signOut } from 'next-auth/react'
 
 import styles from '../styles/Home.module.css'
 
@@ -11,6 +11,12 @@ export default function Home() {
 
   useEffect(() => {
     if ( !session ) return;
+
+    if (session?.error === 'RefreshAccessTokenError') {
+      signIn();
+      return;
+    }
+
     (async function run() {
       const response = await fetch('/api/cloudinary/search', {
         method: 'POST'

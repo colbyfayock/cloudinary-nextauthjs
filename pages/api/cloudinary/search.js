@@ -13,7 +13,6 @@ export default async (req, res) => {
 
   let cloudName;
 
-
   try {
     const response = await fetch('https://api.cloudinary.com/v1_1/token/info', {
       headers: {
