@@ -29,26 +29,16 @@ export default NextAuth({
     },
   ],
   callbacks: {
-    async jwt(token, user, account = {}, profile, isNewUser) {
-      console.group('jwt');
-      console.log('token', token);
-      console.log('user', user);
-      console.log('account', account);
-      console.log('profile', profile);
-      console.groupEnd('jwt');
-      if ( account.provider && !token[account.provider] ) {
+    async jwt({ token, account }) {
+      if ( !token[account.provider] ) {
         token[account.provider] = {};
       }
 
-      if ( account.accessToken ) {
-        token[account.provider].accessToken = account.accessToken;
+      if (account) {
+        token[account.provider].accessToken = account.access_token;
       }
 
-      if ( account.refreshToken ) {
-        token[account.provider].refreshToken = account.refreshToken;
-      }
-
-      return token;
-    },
+      return token
+    }
   }
 })
