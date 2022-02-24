@@ -19,12 +19,9 @@ export default NextAuth({
       idToken: false,
       checks: ['pkce', 'state'],
       profile(profile) {
-        console.log('profile', profile)
         return {
-          id: profile.id,
-          name: profile.name,
-          email: profile.email,
-          image: null
+          id: profile.sid,
+          email: profile.sub
         }
       },
       clientId: process.env.CLOUDINARY_CLIENT_ID,
