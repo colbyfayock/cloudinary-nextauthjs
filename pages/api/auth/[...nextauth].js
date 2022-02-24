@@ -16,7 +16,7 @@ export default NextAuth({
       type: 'oauth',
       wellKnown: 'https://oauth.cloudinary.com/.well-known/openid-configuration',
       authorization: { params: { scope: 'upload' } },
-      idToken: true,
+      idToken: false,
       checks: ['pkce', 'state'],
       profile(profile) {
         console.log('profile', profile)
