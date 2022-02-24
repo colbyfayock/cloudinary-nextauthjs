@@ -9,8 +9,19 @@ export default async (req, res) => {
     secret: process.env.SECRET
   });
 
+  console.log('token.cloudinary.accessToken', token.cloudinary.accessToken)
+
+  const { cloud_name } = await fetch('https://api.cloudinary.com/v1_1/token/info', {
+    method: 'POST',
+    headers: {
+      Authorization: `Bearer ${token.cloudinary.accessToken}`
+    }
+  }).then(r => r.json());
+
+  console.log('cloud_name', cloud_name)
+
   cloudinary.config({
-    cloud_name: 'fay',
+    cloud_name,
     oauth_token: token.cloudinary.accessToken
   });
 
