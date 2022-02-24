@@ -2,7 +2,6 @@ import NextAuth from 'next-auth';
 
 export default NextAuth({
   secret: process.env.SECRET,
-  debug: true,
   providers: [
     // https://next-auth.js.org/v3/configuration/providers#using-a-custom-provider
     {

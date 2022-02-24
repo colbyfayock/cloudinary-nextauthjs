@@ -10,7 +10,7 @@ export default async (req, res) => {
   });
 
   cloudinary.config({
-    cloud_name: 'colbycloud',
+    cloud_name: 'fay',
     oauth_token: token.cloudinary.accessToken
   });
 
