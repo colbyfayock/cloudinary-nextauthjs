@@ -52,7 +52,7 @@ export default function Home() {
           <div className={styles.grid}>
             {data?.resources.map(({ asset_id, secure_url }) => {
               return (
-                <div className={styles.card}>
+                <div key={asset_id} className={styles.card}>
                   <img src={secure_url} />
                 </div>
               )
