@@ -6,6 +6,21 @@ import styles from '../styles/Home.module.css'
 
 export default function Home() {
   const { data: session } = useSession()
+
+  async function handleOnTrigger(e) {
+    e.preventDefault();
+
+    const formData = new FormData(e.currentTarget);
+    const query = formData.get('query');
+
+    const results = await fetch('/api/cloudinary/search', {
+      method: 'POST',
+      body: JSON.stringify({
+        query
+      })
+    }).then(res => res.json());
+  }
+
   return (
     <div className={styles.container}>
       <Head>
@@ -20,10 +35,16 @@ export default function Home() {
         </h1>
 
         { session && (
-          <p>
-            Signed in as {session.user.email} <br />
-            <button onClick={() => signOut()}>Sign out</button>
-          </p>
+          <>
+            <p>
+              Signed in as {session.user.email} <br />
+              <button onClick={() => signOut()}>Sign out</button>
+            </p>
+            <p>
+              <input type="search" name="search" />
+              <button onClick={handleOnTrigger}>Trigger</button>
+            </p>
+          </>
         )}
 
         { !session && (
