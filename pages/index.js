@@ -7,7 +7,7 @@ import styles from '../styles/Home.module.css'
 export default function Home() {
   const { data: session } = useSession()
 
-  async function handleOnTrigger(e) {
+  async function handleOnSubmit(e) {
     e.preventDefault();
 
     const formData = new FormData(e.currentTarget);
@@ -40,10 +40,10 @@ export default function Home() {
               Signed in as {session.user.email} <br />
               <button onClick={() => signOut()}>Sign out</button>
             </p>
-            <p>
+            <form onSubmit={handleOnSubmit}>
               <input type="search" name="search" />
-              <button onClick={handleOnTrigger}>Trigger</button>
-            </p>
+              <button>Trigger</button>
+            </form>
           </>
         )}
 
