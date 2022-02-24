@@ -17,7 +17,7 @@ export default NextAuth({
       wellKnown: 'https://oauth.cloudinary.com/.well-known/openid-configuration',
       authorization: { params: { scope: 'upload' } },
       idToken: true,
-      checks: ['state'],
+      checks: ['pkce', 'state'],
       profile(profile) {
         console.log('profile', profile)
         return {
@@ -28,7 +28,34 @@ export default NextAuth({
         }
       },
       clientId: process.env.CLOUDINARY_CLIENT_ID,
-      clientSecret: process.env.CLOUDINARY_CLIENT_SECRET
+      clientSecret: process.env.CLOUDINARY_CLIENT_SECRET,
+      client: {
+        token_endpoint_auth_method: 'client_secret_post'
+      }
     },
   ],
+	callbacks: {
+		async signIn({ user, account, profile, email, credentials }) {
+			console.log('fire signin Callback');
+			return true;
+		},
+		async redirect({ url, baseUrl, ...rest }) {
+      console.group('redirect');
+      console.log('url', url);
+      console.log('baseUrl', baseUrl);
+      console.log('rest', rest);
+      console.groupEnd('redirect');
+			return baseUrl;
+		},
+		async session({ session, user, token }) {
+			console.log('fire SESSION Callback');
+			return session;
+		},
+		async jwt({ token, user, account, profile, isNewUser }) {
+			console.log('fire jwt Callback');
+
+			console.log({ token, user, account, profile, isNewUser });
+			return token;
+		},
+	},
 })
