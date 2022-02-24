@@ -10,7 +10,7 @@ export default NextAuth({
       name: 'Cloudinary',
       type: 'oauth',
       wellKnown: 'https://oauth.cloudinary.com/.well-known/openid-configuration',
-      authorization: { params: { scope: 'upload' } },
+      authorization: { params: { scope: 'upload asset_management' } },
       idToken: false,
       checks: ['pkce', 'state'],
       profile(profile) {
