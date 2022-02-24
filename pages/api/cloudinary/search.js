@@ -18,7 +18,7 @@ export default async (req, res) => {
     }
   });
   console.log('response', response)
-  const data = await data.json();
+  const data = await response.json();
 
   console.log('data', data)
 
