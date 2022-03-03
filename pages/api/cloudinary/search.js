@@ -9,8 +9,6 @@ export default async (req, res) => {
     secret: process.env.SECRET
   });
 
-  console.log('token.cloudinary.accessToken', token.cloudinary.accessToken)
-
   let cloudName;
 
   try {
